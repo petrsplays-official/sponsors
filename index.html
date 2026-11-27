@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PetrsPlays Official — Sponzoři projektu</title>
+  <meta name="description" content="PetrsPlays Official – oficiální web kanálu." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🎮%3C/text%3E%3C/svg%3E" />
+  <title>PetrsPlays Official — Sponzoři Projektu</title>
   <style>
     :root {
       --bg: #0b0d12;
@@ -138,7 +141,6 @@
       color: var(--text);
     }
 
-    /* Popover & Modals */
     .account-popover {
       position: fixed;
       top: 66px;
@@ -249,7 +251,6 @@
       line-height: 1.65;
     }
 
-    /* Sidebar */
     .sidebar-overlay {
       position: fixed;
       inset: 0;
@@ -276,11 +277,14 @@
       z-index: 50;
       padding: 20px 16px;
       transform: translateX(-100%);
-      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      visibility: hidden;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.28s;
     }
 
     aside.sidebar.open {
       transform: translateX(0);
+      visibility: visible;
+      transition-delay: 0s;
     }
 
     .sidebar-header {
@@ -309,6 +313,19 @@
       font-weight: 500;
     }
 
+    .nav-link {
+      border: 1px solid transparent;
+    }
+
+    :focus-visible {
+      outline: 2px solid #60a5fa;
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+
     .nav-link:hover {
       background: var(--surface-hover);
       color: var(--text);
@@ -320,9 +337,7 @@
       border: 1px solid rgba(59, 130, 246, 0.35);
     }
 
-    /* Main */
     main {
-      width: 100%;
       max-width: 940px;
       margin: 0 auto;
       padding: 28px 18px 48px;
@@ -363,7 +378,6 @@
       padding: 20px;
     }
 
-    /* Složka / sekce Upravit viditelná POUZE pro petrsplays@gmail.com */
     #admin-section {
       display: none;
     }
@@ -502,7 +516,7 @@
 </head>
 <body>
 
-  <div class="sidebar-overlay" id="overlay"></div>
+  <div class="sidebar-overlay" aria-hidden="true" id="overlay"></div>
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -514,7 +528,7 @@
       <li><a class="nav-link" href="https://petrsplays-official.github.io/Projekty/" data-i18n="nav_projects">Projekty</a></li>
       <li><a class="nav-link" href="https://petrsplays-official.github.io/Team/" data-i18n="nav_team">Team</a></li>
       <li><a class="nav-link" href="https://petrsplays-official.github.io/work_with_us/" data-i18n="nav_work">Spolupráce</a></li>
-      <li><a class="nav-link active" href="https://petrsplays-official.github.io/Blogs/" data-i18n="nav_blogs">Blog</a></li>
+      <li><a class="nav-link active" aria-current="page" href="https://petrsplays-official.github.io/Blogs/" data-i18n="nav_blogs">Blog</a></li>
       <li><a class="nav-link" href="https://petrsplays-official.github.io/sponsors/" data-i18n="nav_sponsors">Sponzoři</a></li>
       <li><a class="nav-link" href="https://petrsplays-official.github.io/your_ads/" data-i18n="nav_ads">Vaše reklamy</a></li>
     </ul>
@@ -540,7 +554,6 @@
     </div>
   </header>
 
-  <!-- Rozbalovací profil (stejné jako v Home) -->
   <div class="account-popover" id="accountPopover">
     <div class="popover-header">
       <div class="popover-avatar" id="popoverAvatar">U</div>
@@ -573,23 +586,21 @@
     <button class="btn btn-full btn-danger" id="btnLogout">Odhlásit se</button>
   </div>
 
-  <!-- Přihlašovací modal -->
   <div class="modal-backdrop" id="loginModal">
-    <div class="modal-card">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Přihlášení">
       <div class="modal-top">
         <h2>Přihlášení k účtu</h2>
         <button class="close-btn" id="closeLoginModal" aria-label="Zavřít">&times;</button>
       </div>
       <button class="btn btn-full" id="btnLoginGoogle">Pokračovat přes Google</button>
-      <input type="email" id="loginEmail" placeholder="E-mail" />
-      <input type="password" id="loginPassword" placeholder="Heslo" />
+      <input type="email" id="loginEmail" placeholder="E-mail" aria-label="E-mail" autocomplete="email" />
+      <input type="password" id="loginPassword" placeholder="Heslo" aria-label="Heslo" autocomplete="current-password" />
       <button class="btn btn-full btn-secondary" id="btnLoginEmail">Přihlásit se e-mailem</button>
     </div>
   </div>
 
-  <!-- Detail položky (blog / projekt / atd.) s křížkem pro zavření -->
   <div class="modal-backdrop" id="detailModal">
-    <div class="modal-card">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
       <div class="modal-top">
         <h2 id="detailTitle"></h2>
         <button class="close-btn" id="closeDetailModal" aria-label="Zavřít">&times;</button>
@@ -605,7 +616,6 @@
       <p data-i18n="page_sub">Kliknutím na položku otevřeš její detail a zavřeš ho křížkem.</p>
     </section>
 
-    <!-- Složka / sekce Upravit: vidí POUZE petrsplays@gmail.com -->
     <section class="card" id="admin-section">
       <h2 style="margin-bottom:12px;" data-i18n="edit_folder_title">Upravit / přidat položku</h2>
       <input type="hidden" id="editDocId" />
@@ -631,7 +641,6 @@
       </div>
     </section>
 
-    <!-- Seznam položek -->
     <section class="items-grid" id="itemsGrid">
       <div class="card"><p>Načítám...</p></div>
     </section>
@@ -643,7 +652,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
     import {
       getAuth,
       onAuthStateChanged,
@@ -678,16 +687,14 @@
       measurementId: "G-BRG1B0CJK0"
     };
 
-    // Pro každý repozitář změň na: "blogs", "projects", "team", "work_with_us", "sponsors", "ads"
     const COLLECTION_NAME = "sponsors";
     const ADMIN_EMAIL = "petrsplays@gmail.com";
 
     const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
+    isSupported().then((ok) => { if (ok) getAnalytics(app); }).catch(() => {});
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Sidebar
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("overlay");
     document.getElementById("openSidebar").addEventListener("click", () => {
@@ -701,7 +708,6 @@
     document.getElementById("closeSidebar").addEventListener("click", closeSide);
     overlay.addEventListener("click", closeSide);
 
-    // Přihlášení & Profil (stejná logika jako v Home)
     const openLoginModalBtn = document.getElementById("openLoginModal");
     const loginModal = document.getElementById("loginModal");
     const avatarBtn = document.getElementById("avatarBtn");
@@ -723,6 +729,15 @@
       }
     });
 
+    function setAvatarContent(el, photoURL, fallback) {
+      el.textContent = "";
+      if (photoURL && /^https:\/\//i.test(photoURL)) {
+        const img = document.createElement("img");
+        img.src = photoURL; img.alt = "Avatar"; img.referrerPolicy = "no-referrer";
+        el.appendChild(img);
+      } else { el.textContent = fallback; }
+    }
+
     function isAdmin(user) {
       return Boolean(user && user.email === ADMIN_EMAIL);
     }
@@ -730,13 +745,8 @@
     function renderAvatar(user, customName) {
       const nameSource = customName || user.displayName || user.email || "U";
       const initial = nameSource.trim().charAt(0).toUpperCase();
-      if (user.photoURL) {
-        avatarBtn.innerHTML = `<img src="${user.photoURL}" alt="Avatar" referrerpolicy="no-referrer" />`;
-        document.getElementById("popoverAvatar").innerHTML = `<img src="${user.photoURL}" alt="Avatar" referrerpolicy="no-referrer" />`;
-      } else {
-        avatarBtn.textContent = initial;
-        document.getElementById("popoverAvatar").textContent = initial;
-      }
+      setAvatarContent(avatarBtn, user.photoURL, initial);
+      setAvatarContent(document.getElementById("popoverAvatar"), user.photoURL, initial);
       document.getElementById("popoverDisplayName").textContent = customName || user.displayName || "Uživatel";
       document.getElementById("popoverEmail").textContent = user.email || "";
     }
@@ -757,7 +767,6 @@
 
     onAuthStateChanged(auth, async (user) => {
       const admin = isAdmin(user);
-      // Složku/sekci Upravit vidí jen petrsplays@gmail.com
       adminSection.classList.toggle("visible", admin);
       if (!admin) resetForm();
 
@@ -769,20 +778,21 @@
       } else {
         openLoginModalBtn.style.display = "inline-block";
         avatarBtn.style.display = "none";
+        ["prof-name", "prof-discord", "prof-roblox", "prof-bio"].forEach((id) => (document.getElementById(id).value = ""));
         accountPopover.classList.remove("open");
       }
       renderItems();
     });
 
     document.getElementById("btnLoginGoogle").addEventListener("click", async () => {
-      try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch (e) { alert(e.message); }
+      try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch (e) { if (e.code !== "auth/popup-closed-by-user" && e.code !== "auth/cancelled-popup-request") alert(authMsg(e)); }
     });
 
     document.getElementById("btnLoginEmail").addEventListener("click", async () => {
       const email = document.getElementById("loginEmail").value.trim();
       const pass = document.getElementById("loginPassword").value;
       if (!email || !pass) return alert("Vyplň e-mail a heslo.");
-      try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { alert(e.message); }
+      try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { alert(authMsg(e)); }
     });
 
     document.getElementById("btnSaveProfile").addEventListener("click", async () => {
@@ -792,19 +802,20 @@
       const discord = document.getElementById("prof-discord").value.trim();
       const roblox = document.getElementById("prof-roblox").value.trim();
       const bio = document.getElementById("prof-bio").value.trim();
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid, email: user.email || "", displayName, discord, roblox, bio, updatedAt: serverTimestamp()
-      }, { merge: true });
-      if (displayName && displayName !== user.displayName) await updateProfile(user, { displayName });
-      renderAvatar(user, displayName);
-      const msg = document.getElementById("profileSaveMsg");
-      msg.style.display = "block";
-      setTimeout(() => (msg.style.display = "none"), 2000);
+      try {
+        await setDoc(doc(db, "users", user.uid), {
+          uid: user.uid, email: user.email || "", displayName, discord, roblox, bio, updatedAt: serverTimestamp()
+        }, { merge: true });
+        if (displayName && displayName !== user.displayName) await updateProfile(user, { displayName });
+        renderAvatar(user, displayName);
+        const msg = document.getElementById("profileSaveMsg");
+        msg.style.display = "block";
+        setTimeout(() => (msg.style.display = "none"), 2000);
+      } catch (e) { alert("Chyba při ukládání profilu: " + e.message); }
     });
 
     document.getElementById("btnLogout").addEventListener("click", () => signOut(auth));
 
-    // Detail modal s křížkem pro zavření
     const detailModal = document.getElementById("detailModal");
     function openDetailModal(item) {
       document.getElementById("detailTitle").textContent = item.title || "";
@@ -821,7 +832,6 @@
     document.getElementById("closeDetailModal").addEventListener("click", () => detailModal.classList.remove("open"));
     detailModal.addEventListener("click", (e) => { if (e.target === detailModal) detailModal.classList.remove("open"); });
 
-    // CRUD položek (jen petrsplays@gmail.com)
     const editDocId = document.getElementById("editDocId");
     const itemTitle = document.getElementById("itemTitle");
     const itemUrl = document.getElementById("itemUrl");
@@ -857,16 +867,26 @@
     });
 
     const itemsMap = new Map();
+    let itemsLoaded = false;
     const itemsGrid = document.getElementById("itemsGrid");
 
-    onSnapshot(query(collection(db, COLLECTION_NAME), orderBy("createdAt", "desc")), (snap) => {
-      itemsMap.clear();
-      snap.forEach((d) => itemsMap.set(d.id, d.data()));
-      renderItems();
-    });
+    onSnapshot(
+      query(collection(db, COLLECTION_NAME), orderBy("createdAt", "desc")),
+      (snap) => {
+        itemsMap.clear();
+        snap.forEach((d) => itemsMap.set(d.id, d.data()));
+        itemsLoaded = true;
+        renderItems();
+      },
+      (err) => {
+        itemsGrid.innerHTML = `<div class="card"><p>Položky se nepodařilo načíst. Zkus stránku obnovit.</p></div>`;
+        console.error(err);
+      }
+    );
 
     function renderItems() {
       const admin = isAdmin(auth.currentUser);
+      if (!itemsLoaded) return;
       itemsGrid.innerHTML = "";
       if (itemsMap.size === 0) {
         itemsGrid.innerHTML = `<div class="card"><p>Zatím zde nejsou žádné položky.</p></div>`;
@@ -881,13 +901,14 @@
             <h3 class="item-title">${escapeHtml(data.title || "")}</h3>
             <p class="item-preview">${escapeHtml(data.content || "")}</p>
           </div>
-          ${admin ? `<div class="btn-row" onclick="event.stopPropagation()">
+          ${admin ? `<div class="btn-row">
             <button class="btn btn-secondary" data-edit="${escapeAttr(id)}">Upravit</button>
             <button class="btn btn-danger" data-del="${escapeAttr(id)}">Smazat</button>
           </div>` : ""}
         `;
 
         card.addEventListener("click", () => openDetailModal(data));
+        card.querySelector(".btn-row")?.addEventListener("click", (e) => e.stopPropagation());
 
         card.querySelector("[data-edit]")?.addEventListener("click", () => {
           editDocId.value = id;
@@ -915,7 +936,28 @@
       return escapeHtml(s).replaceAll("'", "&#39;");
     }
 
-    // Překladač (CS, SK, EN-GB, EN-US, UA)
+    function authMsg(e) {
+      const m = {
+        "auth/invalid-credential": "Nesprávný e-mail nebo heslo.",
+        "auth/invalid-email": "Neplatný e-mail.",
+        "auth/too-many-requests": "Příliš mnoho pokusů, zkus to později.",
+        "auth/network-request-failed": "Chyba sítě, zkontroluj připojení."
+      };
+      return m[e.code] || e.message;
+    }
+    ["loginEmail", "loginPassword"].forEach((id) =>
+      document.getElementById(id).addEventListener("keydown", (e) => {
+        if (e.key === "Enter") document.getElementById("btnLoginEmail").click();
+      })
+    );
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      loginModal.classList.remove("open");
+      accountPopover.classList.remove("open");
+      document.getElementById("detailModal")?.classList.remove("open");
+      closeSide();
+    });
+
     const translations = {
       "cs": { nav_home: "Home", nav_projects: "Projekty", nav_team: "Team", nav_work: "Spolupráce", nav_blogs: "Blog", nav_sponsors: "Sponzoři", nav_ads: "Vaše reklamy", btn_login: "Přihlásit se", page_title: "Sekce", page_sub: "Kliknutím na položku otevřeš její detail a zavřeš ho křížkem.", edit_folder_title: "Upravit / přidat položku", copyright: "© 2026 PetrsPlays Official. Všechna práva vyhrazena." },
       "sk": { nav_home: "Domov", nav_projects: "Projekty", nav_team: "Tím", nav_work: "Spolupráca", nav_blogs: "Blog", nav_sponsors: "Sponzori", nav_ads: "Vaše reklamy", btn_login: "Prihlásiť sa", page_title: "Sekcia", page_sub: "Kliknutím na položku otvoríš detail a zatvoríš ho krížikom.", edit_folder_title: "Upraviť / pridať položku", copyright: "© 2026 PetrsPlays Official. Všetky práva vyhradené." },
@@ -932,10 +974,12 @@
         const key = el.getAttribute("data-i18n");
         if (dict[key]) el.textContent = dict[key];
       });
-      localStorage.setItem("pp_lang", lang);
+      try { localStorage.setItem("pp_lang", lang); } catch (e) {}
     }
     langSelect.addEventListener("change", (e) => applyLanguage(e.target.value));
-    const savedLang = localStorage.getItem("pp_lang") || "cs";
+    let savedLang = "cs";
+    try { savedLang = localStorage.getItem("pp_lang") || "cs"; } catch (e) {}
+    if (!translations[savedLang]) savedLang = "cs";
     langSelect.value = savedLang;
     applyLanguage(savedLang);
   </script>
